@@ -143,4 +143,4 @@ print("\n")
 with open("milestone3.txt", "w") as f:
     f.write(generated_text)
 
-print("Generated text saved to milestone3.txt")
+print("Generated text saved to milestone3.txt")  
