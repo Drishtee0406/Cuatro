@@ -97,7 +97,7 @@ class MultiHeadAttention(nn.Module):
         return out
 
 class FeedFoward(nn.Module):
-    """ a simple linear layer followed by a non-linearity """
+ 
 
     def __init__(self, n_embd):
         super().__init__()
