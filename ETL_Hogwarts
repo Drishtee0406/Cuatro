@@ -1,0 +1,657 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOGD7OkHhdAkH6+2eBTqOym",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Drishtee0406/Cuatro/blob/main/ETL_Hogwarts\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "LVYc3-Eg-FwJ"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "BRONZE LAYER"
+      ],
+      "metadata": {
+        "id": "75xo5zEj_lY2"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import datetime\n",
+        "import os"
+      ],
+      "metadata": {
+        "id": "MllouNVg_oQu"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cwd = os.getcwd()\n",
+        "print(f'File Path: {cwd}')\n",
+        "folder = '/Hogwarts_Student_Data'\n",
+        "data_path = cwd + folder\n",
+        "print(f'Data Location: {data_path}')\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "VzHu-NcTKH-z",
+        "outputId": "68a0925f-91b6-4bf2-d591-3a2f2b40e7a4"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "File Path: /content\n",
+            "Data Location: /content/Hogwarts_Student_Data\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# New Section"
+      ],
+      "metadata": {
+        "id": "IJuXOiLmhQQS"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "folder_files = os.listdir(data_path)\n",
+        "for f in folder_files:\n",
+        "    print(f)\n",
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 211
+        },
+        "id": "yUHYH68nK86J",
+        "outputId": "434183ed-b44e-48bd-b75a-8d0ac57d0d7c"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "FileNotFoundError",
+          "evalue": "[Errno 2] No such file or directory: '/content/Hogwarts_Student_Data'",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mFileNotFoundError\u001b[0m                         Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-6-b17107880cf3>\u001b[0m in \u001b[0;36m<cell line: 1>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mfolder_files\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mos\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlistdir\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mdata_path\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0mf\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mfolder_files\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m     \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mf\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mFileNotFoundError\u001b[0m: [Errno 2] No such file or directory: '/content/Hogwarts_Student_Data'"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df_peek = pd.read_csv(data_path + '/Hogwarts_Student_Data_20240101.csv')\n",
+        "df_peek.head()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 556
+        },
+        "id": "6FA2Uz5seGLr",
+        "outputId": "8ee478c0-7592-44b1-9382-1f6406cbeeea"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "      Student Name       House  Year                                Wand Type  \\\n",
+              "0    Seamus Potter   Slytherin     2           9 inches, elm, veela hair core   \n",
+              "1    Ginny Spinnet  Gryffindor     6           9 inches, elm, veela hair core   \n",
+              "2  Padma Parkinson  Gryffindor     4   11 inches, holly, phoenix feather core   \n",
+              "3              NaN   Ravenclaw     1        12 inches, yew, unicorn hair core   \n",
+              "4              NaN   Ravenclaw     1  10 inches, oak, dragon heartstring core   \n",
+              "\n",
+              "           Pet         Potions Grade Defense Against the Dark Arts Grade  \\\n",
+              "0       Dragon           Outstanding                Exceeds Expectations   \n",
+              "1          Cat  Exceeds Expectations                          Acceptable   \n",
+              "2  Muggle Born           Outstanding                          Acceptable   \n",
+              "3         Toad  Exceeds Expectations                Exceeds Expectations   \n",
+              "4          Owl                   NaN                         Outstanding   \n",
+              "\n",
+              "  Transfiguration Grade  Spells Learned Quidditch Position  \\\n",
+              "0           Outstanding              26             Beater   \n",
+              "1           Outstanding              11             Chaser   \n",
+              "2           Outstanding              19             Seeker   \n",
+              "3  Exceeds Expectations              16             Seeker   \n",
+              "4  Exceeds Expectations               9             Keeper   \n",
+              "\n",
+              "   Points Earned for House  Detentions Participation in Dueling Club  \\\n",
+              "0                     -100           3                            No   \n",
+              "1                      139           2                            No   \n",
+              "2                       93           2                            No   \n",
+              "3                      -73           2                            No   \n",
+              "4                       90           0                            No   \n",
+              "\n",
+              "  Triwizard Tournament Involvement                             Items Owned  \\\n",
+              "0                               No             Time-Turner, Marauder's Map   \n",
+              "1                               No  Firebolt, Sneakoscope, Extendable Ears   \n",
+              "2                               No                      Invisibility Cloak   \n",
+              "3                              NaN                             Time-Turner   \n",
+              "4                              Yes             Marauder's Map, Sneakoscope   \n",
+              "\n",
+              "   Knuts Spent in Hogsmeade  Attendance at Classes  Magical Accidents  \n",
+              "0                        88                     74                  5  \n",
+              "1                        99                     67                  6  \n",
+              "2                       342                     88                  6  \n",
+              "3                       233                     45                  5  \n",
+              "4                       473                     27                  7  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-6f9b02e1-7edd-4077-a7b9-1964278056ec\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Student Name</th>\n",
+              "      <th>House</th>\n",
+              "      <th>Year</th>\n",
+              "      <th>Wand Type</th>\n",
+              "      <th>Pet</th>\n",
+              "      <th>Potions Grade</th>\n",
+              "      <th>Defense Against the Dark Arts Grade</th>\n",
+              "      <th>Transfiguration Grade</th>\n",
+              "      <th>Spells Learned</th>\n",
+              "      <th>Quidditch Position</th>\n",
+              "      <th>Points Earned for House</th>\n",
+              "      <th>Detentions</th>\n",
+              "      <th>Participation in Dueling Club</th>\n",
+              "      <th>Triwizard Tournament Involvement</th>\n",
+              "      <th>Items Owned</th>\n",
+              "      <th>Knuts Spent in Hogsmeade</th>\n",
+              "      <th>Attendance at Classes</th>\n",
+              "      <th>Magical Accidents</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Seamus Potter</td>\n",
+              "      <td>Slytherin</td>\n",
+              "      <td>2</td>\n",
+              "      <td>9 inches, elm, veela hair core</td>\n",
+              "      <td>Dragon</td>\n",
+              "      <td>Outstanding</td>\n",
+              "      <td>Exceeds Expectations</td>\n",
+              "      <td>Outstanding</td>\n",
+              "      <td>26</td>\n",
+              "      <td>Beater</td>\n",
+              "      <td>-100</td>\n",
+              "      <td>3</td>\n",
+              "      <td>No</td>\n",
+              "      <td>No</td>\n",
+              "      <td>Time-Turner, Marauder's Map</td>\n",
+              "      <td>88</td>\n",
+              "      <td>74</td>\n",
+              "      <td>5</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>Ginny Spinnet</td>\n",
+              "      <td>Gryffindor</td>\n",
+              "      <td>6</td>\n",
+              "      <td>9 inches, elm, veela hair core</td>\n",
+              "      <td>Cat</td>\n",
+              "      <td>Exceeds Expectations</td>\n",
+              "      <td>Acceptable</td>\n",
+              "      <td>Outstanding</td>\n",
+              "      <td>11</td>\n",
+              "      <td>Chaser</td>\n",
+              "      <td>139</td>\n",
+              "      <td>2</td>\n",
+              "      <td>No</td>\n",
+              "      <td>No</td>\n",
+              "      <td>Firebolt, Sneakoscope, Extendable Ears</td>\n",
+              "      <td>99</td>\n",
+              "      <td>67</td>\n",
+              "      <td>6</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Padma Parkinson</td>\n",
+              "      <td>Gryffindor</td>\n",
+              "      <td>4</td>\n",
+              "      <td>11 inches, holly, phoenix feather core</td>\n",
+              "      <td>Muggle Born</td>\n",
+              "      <td>Outstanding</td>\n",
+              "      <td>Acceptable</td>\n",
+              "      <td>Outstanding</td>\n",
+              "      <td>19</td>\n",
+              "      <td>Seeker</td>\n",
+              "      <td>93</td>\n",
+              "      <td>2</td>\n",
+              "      <td>No</td>\n",
+              "      <td>No</td>\n",
+              "      <td>Invisibility Cloak</td>\n",
+              "      <td>342</td>\n",
+              "      <td>88</td>\n",
+              "      <td>6</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>NaN</td>\n",
+              "      <td>Ravenclaw</td>\n",
+              "      <td>1</td>\n",
+              "      <td>12 inches, yew, unicorn hair core</td>\n",
+              "      <td>Toad</td>\n",
+              "      <td>Exceeds Expectations</td>\n",
+              "      <td>Exceeds Expectations</td>\n",
+              "      <td>Exceeds Expectations</td>\n",
+              "      <td>16</td>\n",
+              "      <td>Seeker</td>\n",
+              "      <td>-73</td>\n",
+              "      <td>2</td>\n",
+              "      <td>No</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>Time-Turner</td>\n",
+              "      <td>233</td>\n",
+              "      <td>45</td>\n",
+              "      <td>5</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>NaN</td>\n",
+              "      <td>Ravenclaw</td>\n",
+              "      <td>1</td>\n",
+              "      <td>10 inches, oak, dragon heartstring core</td>\n",
+              "      <td>Owl</td>\n",
+              "      <td>NaN</td>\n",
+              "      <td>Outstanding</td>\n",
+              "      <td>Exceeds Expectations</td>\n",
+              "      <td>9</td>\n",
+              "      <td>Keeper</td>\n",
+              "      <td>90</td>\n",
+              "      <td>0</td>\n",
+              "      <td>No</td>\n",
+              "      <td>Yes</td>\n",
+              "      <td>Marauder's Map, Sneakoscope</td>\n",
+              "      <td>473</td>\n",
+              "      <td>27</td>\n",
+              "      <td>7</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-6f9b02e1-7edd-4077-a7b9-1964278056ec')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-6f9b02e1-7edd-4077-a7b9-1964278056ec button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-6f9b02e1-7edd-4077-a7b9-1964278056ec');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "<div id=\"df-ab86c71f-73fc-427d-bb8d-5bfecdb35e6d\">\n",
+              "  <button class=\"colab-df-quickchart\" onclick=\"quickchart('df-ab86c71f-73fc-427d-bb8d-5bfecdb35e6d')\"\n",
+              "            title=\"Suggest charts\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "     width=\"24px\">\n",
+              "    <g>\n",
+              "        <path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z\"/>\n",
+              "    </g>\n",
+              "</svg>\n",
+              "  </button>\n",
+              "\n",
+              "<style>\n",
+              "  .colab-df-quickchart {\n",
+              "      --bg-color: #E8F0FE;\n",
+              "      --fill-color: #1967D2;\n",
+              "      --hover-bg-color: #E2EBFA;\n",
+              "      --hover-fill-color: #174EA6;\n",
+              "      --disabled-fill-color: #AAA;\n",
+              "      --disabled-bg-color: #DDD;\n",
+              "  }\n",
+              "\n",
+              "  [theme=dark] .colab-df-quickchart {\n",
+              "      --bg-color: #3B4455;\n",
+              "      --fill-color: #D2E3FC;\n",
+              "      --hover-bg-color: #434B5C;\n",
+              "      --hover-fill-color: #FFFFFF;\n",
+              "      --disabled-bg-color: #3B4455;\n",
+              "      --disabled-fill-color: #666;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart {\n",
+              "    background-color: var(--bg-color);\n",
+              "    border: none;\n",
+              "    border-radius: 50%;\n",
+              "    cursor: pointer;\n",
+              "    display: none;\n",
+              "    fill: var(--fill-color);\n",
+              "    height: 32px;\n",
+              "    padding: 0;\n",
+              "    width: 32px;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart:hover {\n",
+              "    background-color: var(--hover-bg-color);\n",
+              "    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "    fill: var(--button-hover-fill-color);\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart-complete:disabled,\n",
+              "  .colab-df-quickchart-complete:disabled:hover {\n",
+              "    background-color: var(--disabled-bg-color);\n",
+              "    fill: var(--disabled-fill-color);\n",
+              "    box-shadow: none;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-spinner {\n",
+              "    border: 2px solid var(--fill-color);\n",
+              "    border-color: transparent;\n",
+              "    border-bottom-color: var(--fill-color);\n",
+              "    animation:\n",
+              "      spin 1s steps(1) infinite;\n",
+              "  }\n",
+              "\n",
+              "  @keyframes spin {\n",
+              "    0% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "      border-left-color: var(--fill-color);\n",
+              "    }\n",
+              "    20% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    30% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    40% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    60% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    80% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "    90% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "  }\n",
+              "</style>\n",
+              "\n",
+              "  <script>\n",
+              "    async function quickchart(key) {\n",
+              "      const quickchartButtonEl =\n",
+              "        document.querySelector('#' + key + ' button');\n",
+              "      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.\n",
+              "      quickchartButtonEl.classList.add('colab-df-spinner');\n",
+              "      try {\n",
+              "        const charts = await google.colab.kernel.invokeFunction(\n",
+              "            'suggestCharts', [key], {});\n",
+              "      } catch (error) {\n",
+              "        console.error('Error during call to suggestCharts:', error);\n",
+              "      }\n",
+              "      quickchartButtonEl.classList.remove('colab-df-spinner');\n",
+              "      quickchartButtonEl.classList.add('colab-df-quickchart-complete');\n",
+              "    }\n",
+              "    (() => {\n",
+              "      let quickchartButtonEl =\n",
+              "        document.querySelector('#df-ab86c71f-73fc-427d-bb8d-5bfecdb35e6d button');\n",
+              "      quickchartButtonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "    })();\n",
+              "  </script>\n",
+              "</div>\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "variable_name": "df_peek",
+              "summary": "{\n  \"name\": \"df_peek\",\n  \"rows\": 8000,\n  \"fields\": [\n    {\n      \"column\": \"Student Name\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 899,\n        \"samples\": [\n          \"Neville Patil\",\n          \"Aliciap Malfoy\",\n          \"Padma FinMnigan\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"House\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 4,\n        \"samples\": [\n          \"Gryffindor\",\n          \"Hufflepuff\",\n          \"Slytherin\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Year\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 1,\n        \"min\": 1,\n        \"max\": 7,\n        \"num_unique_values\": 7,\n        \"samples\": [\n          2,\n          6,\n          7\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Wand Type\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 4,\n        \"samples\": [\n          \"11 inches, holly, phoenix feather core\",\n          \"10 inches, oak, dragon heartstring core\",\n          \"9 inches, elm, veela hair core\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Pet\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 5,\n        \"samples\": [\n          \"Cat\",\n          \"Owl\",\n          \"Muggle Born\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Potions Grade\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 4,\n        \"samples\": [\n          \"Exceeds Expectations\",\n          \"Acceptable\",\n          \"Outstanding\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Defense Against the Dark Arts Grade\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 4,\n        \"samples\": [\n          \"Acceptable\",\n          \"Poor\",\n          \"Exceeds Expectations\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Transfiguration Grade\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 4,\n        \"samples\": [\n          \"Exceeds Expectations\",\n          \"Acceptable\",\n          \"Outstanding\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Spells Learned\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 7,\n        \"min\": 5,\n        \"max\": 30,\n        \"num_unique_values\": 26,\n        \"samples\": [\n          5,\n          29,\n          26\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Quidditch Position\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 402,\n        \"samples\": [\n          \"Beat{er\",\n          \"Seeker/\",\n          \"S'eeker\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Points Earned for House\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 86,\n        \"min\": -100,\n        \"max\": 200,\n        \"num_unique_values\": 301,\n        \"samples\": [\n          9,\n          94,\n          150\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Detentions\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 1,\n        \"min\": 0,\n        \"max\": 5,\n        \"num_unique_values\": 6,\n        \"samples\": [\n          3,\n          2,\n          5\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Participation in Dueling Club\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 2,\n        \"samples\": [\n          \"Yes\",\n          \"No\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Triwizard Tournament Involvement\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 2,\n        \"samples\": [\n          \"Yes\",\n          \"No\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Items Owned\",\n      \"properties\": {\n        \"dtype\": \"category\",\n        \"num_unique_values\": 156,\n        \"samples\": [\n          \"Extendable Ears, Invisibility Cloak, Firebolt\",\n          \"Firebolt, Marauder's Map, Time-Turner\"\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Knuts Spent in Hogsmeade\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 145,\n        \"min\": 0,\n        \"max\": 500,\n        \"num_unique_values\": 501,\n        \"samples\": [\n          428,\n          363\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Attendance at Classes\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 21,\n        \"min\": 25,\n        \"max\": 100,\n        \"num_unique_values\": 76,\n        \"samples\": [\n          27,\n          65\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Magical Accidents\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 3,\n        \"min\": 0,\n        \"max\": 10,\n        \"num_unique_values\": 11,\n        \"samples\": [\n          2,\n          5\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 40
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df_list = []\n",
+        "for file in folder_files:\n",
+        "  print(f'Reading {file}')\n",
+        "  file_path = data_path + '/' + file\n",
+        "  team_df = pd.read_csv(file_path)\n",
+        "  team_df['filename'] = file\n",
+        "  team_df['loadDatetimeStamp'] = datetime.datetime.now()\n",
+        "  df_list.append(team_df)\n",
+        "df = pd.concat(df_list, ignore_index=True)\n",
+        "print('Completed Dataframe Concatenation')"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "aDJv_Y3ie1k-",
+        "outputId": "ca8fff56-cf61-4fcc-e449-55113a841aca"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Reading Hogwarts_Student_Data_20240401.csv\n",
+            "Reading Hogwarts_Student_Data_20240201.csv\n",
+            "Reading Hogwarts_Student_Data_20240601.csv\n",
+            "Reading Hogwarts_Student_Data_20240101.csv\n",
+            "Reading Hogwarts_Student_Data_20240501.csv\n",
+            "Reading Hogwarts_Student_Data_20240301.csv\n",
+            "Completed Dataframe Concatenation\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.info()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 141
+        },
+        "id": "kKQEbs5at_2c",
+        "outputId": "c8f35470-e15a-4676-c951-92f7ad35f808"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "name 'df' is not defined",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-2-a74c58233b9e>\u001b[0m in \u001b[0;36m<cell line: 1>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mdf\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0minfo\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'df' is not defined"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.to_parquet('./Medallion Architecture/bronze/bronze_Data.parquet', index = False)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 141
+        },
+        "id": "r8MQ28eEuGcB",
+        "outputId": "ee7e8480-7ee9-4acd-b14b-f03743e7e287"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "name 'df' is not defined",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-1-90b6e96e6593>\u001b[0m in \u001b[0;36m<cell line: 1>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mdf\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mto_parquet\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'./Medallion Architecture/bronze/bronze_Data.parquet'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mindex\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;32mFalse\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m: name 'df' is not defined"
+          ]
+        }
+      ]
+    }
+  ]
+}
